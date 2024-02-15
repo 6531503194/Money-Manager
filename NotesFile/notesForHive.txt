@@ -1,0 +1,25 @@
+When you're using Hive in your Flutter application and running it on your computer, the data is typically saved in the app's sandboxed directory within the Flutter project's directory structure. However, this may not be the default behavior in some cases, especially during development.
+
+By default, when you run a Flutter app in debug mode on your computer, the data may be temporarily stored in memory or in a temporary directory. This means that the data saved during one run of the app may not persist when the app is closed and restarted.
+
+To ensure that data persists across app restarts during development, you can explicitly specify the location where Hive should store its data. This can be done by providing a path to a specific directory on your computer.
+
+Here's how you can specify a custom directory for Hive to store its data:
+
+dart
+Copy code
+import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:hive/hive.dart';
+
+void main() async {
+  // Get the application documents directory
+  WidgetsFlutterBinding.ensureInitialized();
+  final appDocumentDirectory = await path_provider.getApplicationDocumentsDirectory();
+  // Set the Hive storage path
+  Hive.init(appDocumentDirectory.path);
+  runApp(MyApp());
+}
+With this setup, Hive will store its data in the specified application documents directory, making it persist across app restarts during development.
+
+However, keep in mind that during production, the data will be stored in the app's sandboxed directory, which may vary depending on the platform (e.g., /data/data/<package_name>/app_flutter on Android).

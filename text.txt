@@ -1,0 +1,4 @@
+This is the text to write in text.txt .
+                    Welcome to dart programming.
+   
+This is new text
